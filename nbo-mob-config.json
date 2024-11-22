@@ -1,0 +1,58 @@
+{
+  "form_fields": [
+    {
+      "name": "Segment Name",
+      "type": "text",
+      "label": "Segment Name",
+      "description": ""
+    },
+    {
+      "name": "Segment Code",
+      "type": "text",
+      "label": "Segment Code",
+      "description": ""
+    },
+    {
+      "name": "Documentation / Context",
+      "type": "textarea",
+      "label": "Documentation / Context",
+      "description": ""
+    },
+    {
+      "name": "Inclusion Base Loads",
+      "type": "text-list",
+      "label": "Inclusion Base Loads",
+      "description": ""
+    },
+    {
+      "name": "Exclusion Base Loads",
+      "type": "text-list",
+      "label": "Exclusion Base Loads",
+      "description": ""
+    },
+    {
+      "name": "Original base product",
+      "type": "dropdown",
+      "label": "Original base product",
+      "description": "",
+      "options": [
+        "Product A",
+        "Product B",
+        "Product C",
+        "Product D"
+      ]
+    },
+    {
+      "name": "Inclusion Products",
+      "type": "multiselect",
+      "label": "Inclusion Products",
+      "description": "",
+      "options": [
+        "Product 1",
+        "Product 2",
+        "Product 3",
+        "Product 4"
+      ]
+    }
+  ]
+}

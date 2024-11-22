@@ -1,0 +1,104 @@
+{
+    "fields": [
+        {
+            "name": "intake_id",
+            "label": "Intake ID",
+            "description": "Unique BL number associated with each request",
+            "type": "auto-generated"
+        },
+        {
+            "name": "program_name",
+            "label": "Program Name",
+            "description": "Name of the project and/or intake request",
+            "type": "text"
+        },
+        {
+            "name": "description",
+            "label": "Description",
+            "description": "A short description of the program",
+            "type": "textarea"
+        },
+        {
+            "name": "documentation",
+            "label": "Documentation / Context",
+            "description": "A place for GTM to put documentation links, and other contextual information relating to the program",
+            "type": "textarea"
+        },
+        {
+            "name": "baseload_frequency",
+            "label": "Baseload Frequency",
+            "description": "Used to determine how often a baseloading request should rerun (i.e. every x days)",
+            "type": "select",
+            "options": [
+                "Daily",
+                "Weekly",
+                "Monthly"
+            ]
+        },
+        {
+            "name": "start_date",
+            "label": "Program Start Date",
+            "description": "Requested campaign deployment / program offer launch date",
+            "type": "date"
+        },
+        {
+            "name": "end_date",
+            "label": "Program End Date",
+            "description": "What is the last date the program offer will be visible to customers / TELUS agents",
+            "type": "date"
+        },
+        {
+            "name": "offer_type",
+            "label": "Offer Type",
+            "description": "ATL or BTL (Above the line or Below the line)",
+            "type": "text"
+        },
+        {
+            "name": "organization",
+            "label": "Organization",
+            "description": "Which organization is this offer for?",
+            "type": "select",
+            "options": [
+                "Org 1",
+                "Org 2",
+                "Org 3"
+            ]
+        },
+        {
+            "name": "targeted_level",
+            "label": "Targeted Level",
+            "description": "The level at which we want to target customers",
+            "type": "select",
+            "options": [
+                "Level 1",
+                "Level 2",
+                "Level 3"
+            ]
+        },
+        {
+            "name": "baseload_type",
+            "label": "Baseload Type",
+            "description": "Offer loading request type: K/TRPU, Geofencing, TOM & Account memo",
+            "type": "select",
+            "options": [
+                "K/TRPU",
+                "Geofencing",
+                "TOM & Account Memo",
+                "NBO Mobility",
+                "NBO HS"
+            ]
+        },
+        {
+            "name": "surface_for_agents",
+            "label": "Surface for Agents",
+            "description": "",
+            "type": "checkbox"
+        },
+        {
+            "name": "netcracker_ids",
+            "label": "Netcracker IDs",
+            "description": "If the offer uses FIFA NCIDs, a list of associated NCIDs",
+            "type": "text-list"
+        }
+    ]
+}

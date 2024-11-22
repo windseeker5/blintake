@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="container">
+        <h1>Intake Form</h1>
+       
+        <h4>{{ intake_id }}</h4>
+
+        <form id="intakeForm" method="POST" action="{{ url_for('submit_intake') }}">
+            <!-- Hidden field to include intake_id -->
+            <input type="hidden" name="intake_id" value="{{ intake_id }}">
+
+            {% for field in fields %}
+                <div class="input-field">
+                    {% if field.type == "text" %}
+                        <input id="{{ field.name }}" name="{{ field.name }}" type="text">
+                        <label for="{{ field.name }}">{{ field.label }}</label>
+                    {% elif field.type == "textarea" %}
+                        <textarea id="{{ field.name }}" name="{{ field.name }}" class="materialize-textarea"></textarea>
+                        <label for="{{ field.name }}">{{ field.label }}</label>
+                    {% elif field.type == "select" %}
+                        <select id="{{ field.name }}" name="{{ field.name }}">
+                            {% for option in field.options %}
+                                <option value="{{ option }}">{{ option }}</option>
+                            {% endfor %}
+                        </select>
+                        <label for="{{ field.name }}">{{ field.label }}</label>
+                    {% elif field.type == "multi-select" %}
+                        <select id="{{ field.name }}" name="{{ field.name }}" multiple>
+                            {% for option in field.options %}
+                                <option value="{{ option }}">{{ option }}</option>
+                            {% endfor %}
+                        </select>
+                        <label for="{{ field.name }}">{{ field.label }}</label>
+                    {% elif field.type == "date" %}
+                        <input type="text" id="{{ field.name }}" name="{{ field.name }}" class="datepicker">
+                        <label for="{{ field.name }}">{{ field.label }}</label>
+                    {% elif field.type == "checkbox" %}
+                        <p>
+                            <label>
+                                <input type="checkbox" id="{{ field.name }}" name="{{ field.name }}">
+                                <span>{{ field.label }}</span>
+                            </label>
+                        </p>
+                    {% elif field.type == "text-list" %}
+                        <input id="{{ field.name }}" name="{{ field.name }}" type="text">
+                        <label for="{{ field.name }}">{{ field.label }}</label>
+                    {% endif %}
+                </div>
+            {% endfor %}
+
+            <button class="btn waves-effect waves-light" type="submit">Create / Post</button>
+        </form>
+    </div>
+{% endblock %}

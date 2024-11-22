@@ -1,0 +1,126 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <h3>{{ data['program_name'] }} , {{ data['baseload_type'] }}</h3>
+    <p>Intake ID: {{ data['intake_id'] }}</p>
+
+    <p> {{ segment_config }} </p>
+
+
+
+    <button id="create-segment-btn" class="btn blue">Create Segment</button>
+
+
+
+    <!-- Placeholder for the dynamic form -->
+    <div id="dynamic-form-container" class="section" style="margin-top: 20px;"></div>
+
+
+
+</div>
+
+
+
+<script>
+
+
+    const configForm = {{ segment_config | tojson }};
+
+    document.getElementById('create-segment-btn').addEventListener('click', () => {
+        const formContainer = document.getElementById('dynamic-form-container');
+
+        // Clear any existing form
+        formContainer.innerHTML = '';
+
+        const form = document.createElement('form');
+        form.id = 'dynamic-form';
+
+        configForm.form_fields.forEach(field => {
+            try {
+                const fieldWrapper = document.createElement('div');
+                fieldWrapper.className = 'input-field';
+
+                const label = document.createElement('label');
+                label.innerText = field.label;
+
+                let inputElement;
+
+                // Create input elements based on field type
+                if (field.type === 'text') {
+                    inputElement = document.createElement('input');
+                    inputElement.type = 'text';
+                    inputElement.name = field.name;
+                    inputElement.placeholder = field.description;
+                } else if (field.type === 'textarea') {
+                    inputElement = document.createElement('textarea');
+                    inputElement.className = 'materialize-textarea';
+                    inputElement.name = field.name;
+                    inputElement.placeholder = field.description;
+                } else if (field.type === 'dropdown') {
+                    if (Array.isArray(field.options)) {
+                        inputElement = document.createElement('select');
+                        inputElement.name = field.name;
+
+                        field.options.forEach(option => {
+                            const optionElement = document.createElement('option');
+                            optionElement.value = option;
+                            optionElement.textContent = option;
+                            inputElement.appendChild(optionElement);
+                        });
+
+                        // Add the active class to the label to prevent overlap
+                        label.classList.add('active');
+                    } else {
+                        console.error(`Field "${field.name}" of type "dropdown" is missing "options".`);
+                    }
+                } else if (field.type === 'multiselect') {
+                    if (Array.isArray(field.options)) {
+                        inputElement = document.createElement('select');
+                        inputElement.name = field.name;
+                        inputElement.multiple = true;
+
+                        field.options.forEach(option => {
+                            const optionElement = document.createElement('option');
+                            optionElement.value = option;
+                            optionElement.textContent = option;
+                            inputElement.appendChild(optionElement);
+                        });
+
+                        // Add the active class to the label to prevent overlap
+                        label.classList.add('active');
+                    } else {
+                        console.error(`Field "${field.name}" of type "multiselect" is missing "options".`);
+                    }
+                } else {
+                    console.error(`Unsupported field type: ${field.type}`);
+                }
+
+                if (inputElement) {
+                    fieldWrapper.appendChild(label);
+                    fieldWrapper.appendChild(inputElement);
+                    form.appendChild(fieldWrapper);
+                }
+            } catch (err) {
+                console.error(`Error processing field "${field.name}":`, err);
+            }
+        });
+
+        // Add a submit button
+        const submitButton = document.createElement('button');
+        submitButton.type = 'submit';
+        submitButton.className = 'btn green';
+        submitButton.innerText = 'Submit Segment';
+        form.appendChild(submitButton);
+
+        // Append the form to the container
+        formContainer.appendChild(form);
+
+        // Reinitialize Materialize elements
+        M.FormSelect.init(document.querySelectorAll('select'));
+    });
+
+
+
+</script>
+{% endblock %}

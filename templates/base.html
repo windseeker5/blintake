@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+
+
+
+    <title>Base Loading App</title>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav>
+        <div class="nav-wrapper blue">
+            <a href="/" class="brand-logo center">Base Loading App</a>
+            <ul id="nav-mobile" class="left hide-on-med-and-down">
+                <li><a href="{{ url_for('landing_page') }}">Home</a></li>
+                <li><a href="#!">History</a></li> <!-- Placeholder for now -->
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Container -->
+    <div class="container">
+        {% block content %}{% endblock %}
+    </div>
+
+    <!-- Materialize JS -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize Materialize components
+            M.FormSelect.init(document.querySelectorAll('select'));
+            M.Datepicker.init(document.querySelectorAll('.datepicker'), { format: 'yyyy-mm-dd' });
+        });
+    </script>
+</body>
+</html>

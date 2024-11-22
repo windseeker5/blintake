@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="container">
+        <h1>Intake Form</h1>
+        
+        <form id="intakeForm" method="POST" action="{{ url_for('helloJson') }}">
+            {% for field in fields %}
+                <div class="input-field">
+                    {% if field.type == "text" %}
+                        <input id="{{ field.name }}" name="{{ field.name }}" type="text">
+                        <label for="{{ field.name }}">{{ field.label }}</label>
+                    {% elif field.type == "textarea" %}
+                        <textarea id="{{ field.name }}" name="{{ field.name }}" class="materialize-textarea"></textarea>
+                        <label for="{{ field.name }}">{{ field.label }}</label>
+                    {% elif field.type == "select" %}
+                        <select id="{{ field.name }}" name="{{ field.name }}">
+                            {% for option in field.options %}
+                                <option value="{{ option }}">{{ option }}</option>
+                            {% endfor %}
+                        </select>
+                        <label for="{{ field.name }}">{{ field.label }}</label>
+                    {% elif field.type == "multi-select" %}
+                        <select id="{{ field.name }}" name="{{ field.name }}" multiple>
+                            {% for option in field.options %}
+                                <option value="{{ option }}">{{ option }}</option>
+                            {% endfor %}
+                        </select>
+                        <label for="{{ field.name }}">{{ field.label }}</label>
+                    {% elif field.type == "date" %}
+                        <input type="text" id="{{ field.name }}" name="{{ field.name }}" class="datepicker">
+                        <label for="{{ field.name }}">{{ field.label }}</label>
+                    {% elif field.type == "checkbox" %}
+                        <p>
+                            <label>
+                                <input type="checkbox" id="{{ field.name }}" name="{{ field.name }}">
+                                <span>{{ field.label }}</span>
+                            </label>
+                        </p>
+                    {% elif field.type == "text-list" %}
+                        <input id="{{ field.name }}" name="{{ field.name }}" type="text">
+                        <label for="{{ field.name }}">{{ field.label }}</label>
+                    {% endif %}
+                </div>
+            {% endfor %}
+
+
+            <script>
+                $(document).ready(function(){
+                $('#intakeForm').submit(function(event){
+                    event.preventDefault();
+                    var formData = $(this).serialize();
+                    $.ajax({
+                    type: 'POST',
+                    url: 'http://127.0.0.1:5001/create_intake',
+                    data: formData,
+                    success: function(data){
+                        console.log('Form submitted successfully!');
+                    }
+                    });
+                });
+                });
+            </script>
+
+
+
+            <button class="btn waves-effect waves-light" type="submit">Create / Post</button>
+        </form>
+    </div>
+{% endblock %}
